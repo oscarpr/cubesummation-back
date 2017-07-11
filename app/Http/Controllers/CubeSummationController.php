@@ -12,7 +12,7 @@ class CubeSummationController extends Controller {
         if (count($content) >= 1) {
             $T = $this->lineValue(0, $content[0], 1, '\s');
             if (!$this->isValid($T, 1, 50)) {
-                return 'Test case number is not valid';
+                return 'Test-case-number-is-not-valid';
             }
 
             $testcases = $this->extractTestCases($content, $T);
@@ -78,13 +78,13 @@ class CubeSummationController extends Controller {
                 array_push($testcases, $testcase);
             }
         }
-        return count($testcases) == $T ? $testcases : ((count($testcases) > $T) ? 'Missing testcases' : 'Extra testcases');
+        return count($testcases) == $T ? $testcases : ((count($testcases) > $T) ? 'Missing-testcases' : 'Extra-testcases');
     }
 
     private function resolveTestCase($testcase) {
         list($N, $M) = $this->getParameters($testcase[0]);
         if ($N == null) {
-            return 'Matrix size must be number and between 1 and 100';
+            return 'Matrix-size-must-be-number-and-between-1-and-100';
         }
 
         if ($N == -1 && $M == -1) {
@@ -92,11 +92,11 @@ class CubeSummationController extends Controller {
         }
 
         if ($M == null) {
-            return 'Number of operations must be number and between 1 and 1000';
+            return 'Number-of-operations-must-be-number-and-between-1-and-1000';
         }
 
         if ($M != (count($testcase) - 1)) {
-            return $M < (count($testcase) - 1) ? 'Extra operations' : 'Missing Operations';
+            return $M < (count($testcase) - 1) ? 'Extra-operations' : 'Missing-Operations';
         }
 
         $matrix = $this->createMatrix($N);
@@ -111,7 +111,7 @@ class CubeSummationController extends Controller {
             $queryoperation = $this->lineValue(1, $query, 2, '[^\d][\s]');
 
             if ($querytype == null || $queryoperation == null) {
-                return 'Invalid parameters';
+                return 'Invalid-parameters';
             }
 
             if ($querytype == 'UPDATE') {
@@ -119,7 +119,7 @@ class CubeSummationController extends Controller {
             } elseif ($querytype == 'QUERY') {
                 $value = $value . ' ' . $this->resoleQuery($queryoperation, $matrix);
             } else {
-                return 'Inalid query type';
+                return 'Inalid-query-type';
             }
         }
         return $value;
@@ -138,11 +138,11 @@ class CubeSummationController extends Controller {
                 if ($i == (count($digits) - 1)) {
                     $W = $digits[$i];
                     if (!$this->isValid($digits[$i], pow(10, -9), pow(10, 9))) {
-                        return 'W must be a number and between 10^⁻9 and 10⁻9';
+                        return 'W-must-be-a-number-and-between-10^⁻9-and-10^9';
                         break;
                     }
                 } else if ($digits[$i] > $matrixsize || $digits[$i] == 0) {
-                    return $digits[$i] . ' can not be 0 or greater than ' . $matrixsize;
+                    return $digits[$i] . '-can-not-be-0-or-greater-than-' . $matrixsize;
                 }
             }
 
@@ -151,7 +151,7 @@ class CubeSummationController extends Controller {
             return $matrix;
         }
 
-        return 'Invalid operation format';
+        return 'Invalid-operation-format';
     }
 
     public function resoleQuery($queryoperation, $matrix) {
@@ -164,15 +164,15 @@ class CubeSummationController extends Controller {
             for ($i = 0; $i < (count($digits) / 2); $i++) {
 
                 if ($digits[$i] > $digits[$i + 3]) {
-                    return $digits[$i] . ' Can not be greater than ' . $digits[$i + 3];
+                    return $digits[$i] . '-Can-not-be-greater-than-' . $digits[$i + 3];
                 }
 
                 if ($digits[$i] > $matrixsize) {
-                    return $digits[$i] . ' Can not be greater than ' . $matrixsize;
+                    return $digits[$i] . ' Can-not-be-greater-than ' . $matrixsize;
                 }
 
                 if ($digits[$i + 3] > $matrixsize) {
-                    return $digits[$i + 3] . ' Can not be greater than ' . $matrixsize;
+                    return $digits[$i + 3] . '-Can-not-be-greater-than-' . $matrixsize;
                 }
             }
 
